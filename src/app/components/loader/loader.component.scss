@@ -1,0 +1,76 @@
+.loader-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(10, 10, 30, 0.4);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  border-radius: 24px; // Matches the parent card border radius
+  animation: fadeIn 0.3s ease-out;
+}
+
+.loader-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  text-align: center;
+}
+
+.spinner-container {
+  width: 50px;
+  height: 50px;
+  position: relative;
+  margin-bottom: 1.5rem;
+}
+
+.double-bounce1, .double-bounce2 {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background-color: #a78bfa; // Accent violet/purple
+  opacity: 0.6;
+  position: absolute;
+  top: 0;
+  left: 0;
+  animation: sk-bounce 2.0s infinite ease-in-out;
+}
+
+.double-bounce2 {
+  background-color: #60a5fa; // Accent blue
+  animation-delay: -1.0s;
+}
+
+.loader-message {
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 0.95rem;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  margin: 0;
+  animation: pulseText 1.5s infinite ease-in-out;
+}
+
+@keyframes sk-bounce {
+  0%, 100% { 
+    transform: scale(0.0);
+  } 50% { 
+    transform: scale(1.0);
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes pulseText {
+  0%, 100% { opacity: 0.7; }
+  50% { opacity: 1; }
+}

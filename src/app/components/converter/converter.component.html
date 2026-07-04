@@ -1,0 +1,87 @@
+<div class="converter-card">
+  <!-- Loading overlay -->
+  <app-loader *ngIf="isLoading" message="Fetching live exchange rates..."></app-loader>
+
+  <!-- Error display -->
+  <div class="error-banner" *ngIf="errorMessage">
+    <div class="error-content">
+      <i class="bi bi-exclamation-triangle-fill error-icon"></i>
+      <div class="error-text">
+        <h4>Connection Error</h4>
+        <p>{{ errorMessage }}</p>
+      </div>
+    </div>
+    <button class="retry-btn" (click)="loadCurrencies()">
+      <i class="bi bi-arrow-clockwise"></i> Retry
+    </button>
+  </div>
+
+  <div class="converter-form">
+    <!-- Amount field -->
+    <div class="form-group amount-group">
+      <label for="amountInput">Amount</label>
+      <div class="input-container" [class.invalid]="!isValidAmount()">
+        <span class="currency-symbol-input" *ngIf="fromCurrency">{{ fromCurrency.symbol }}</span>
+        <input
+          id="amountInput"
+          type="number"
+          class="amount-input"
+          placeholder="0.00"
+          [(ngModel)]="amount"
+          (ngModelChange)="convert()"
+          min="0.01"
+          max="999999999"
+          required
+        />
+      </div>
+      <span class="validation-message" *ngIf="!isValidAmount() && amount !== null">
+        Please enter a valid amount greater than 0
+      </span>
+    </div>
+
+    <!-- Currency selection row -->
+    <div class="selections-row">
+      <div class="selection-col">
+        <app-currency-dropdown
+          [currencies]="currencies"
+          [selectedCurrency]="fromCurrency"
+          label="From"
+          placeholder="Search from currency..."
+          (currencyChange)="onFromCurrencyChange($event)"
+        ></app-currency-dropdown>
+      </div>
+
+      <div class="swap-action-col">
+        <button
+          class="swap-button"
+          (click)="swapCurrencies()"
+          [class.animating]="isSwapping"
+          title="Swap Currencies"
+          aria-label="Swap Currencies"
+        >
+          <i class="bi bi-arrow-left-right"></i>
+        </button>
+      </div>
+
+      <div class="selection-col">
+        <app-currency-dropdown
+          [currencies]="currencies"
+          [selectedCurrency]="toCurrency"
+          label="To"
+          placeholder="Search to currency..."
+          (currencyChange)="onToCurrencyChange($event)"
+        ></app-currency-dropdown>
+      </div>
+    </div>
+
+    <!-- Manual action button (Optional, as conversions are real-time, but requested in features) -->
+    <div class="action-row">
+      <button class="convert-action-btn" [disabled]="!isValidAmount()" (click)="convert()">
+        <i class="bi bi-calculator"></i> Convert Now
+      </button>
+    </div>
+  </div>
+
+  <!-- Converted result component -->
+  <app-result-card [result]="conversionResult"></app-result-card>
+</div>

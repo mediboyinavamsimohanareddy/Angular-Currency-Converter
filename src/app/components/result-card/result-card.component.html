@@ -1,0 +1,40 @@
+<div class="result-card-container" *ngIf="result" [class.show]="result">
+  <div class="conversion-display">
+    <span class="base-amount">
+      {{ result.amount | number:'1.2-2' }} {{ result.fromCurrency.code }} =
+    </span>
+    <h2 class="target-amount">
+      <span class="currency-symbol">{{ result.toCurrency.symbol }}</span>
+      {{ result.convertedAmount | number:'1.2-4' }}
+      <span class="target-code">{{ result.toCurrency.code }}</span>
+    </h2>
+  </div>
+
+  <div class="rates-breakdown">
+    <div class="rate-row">
+      <i class="bi bi-info-circle-fill info-icon"></i>
+      <span class="rate-text">
+        1 {{ result.fromCurrency.code }} = {{ result.rate | number:'1.2-6' }} {{ result.toCurrency.code }}
+      </span>
+    </div>
+    <div class="rate-row">
+      <i class="bi bi-arrow-left-right info-icon"></i>
+      <span class="rate-text">
+        1 {{ result.toCurrency.code }} = {{ result.reverseRate | number:'1.2-6' }} {{ result.fromCurrency.code }}
+      </span>
+    </div>
+  </div>
+
+  <div class="currency-info-badge">
+    <span class="currency-flag currency-flag-{{result.fromCurrency.code.toLowerCase()}} micro-flag"></span>
+    <span class="badge-text">{{ result.fromCurrency.name }}</span>
+    <i class="bi bi-arrow-right badge-arrow"></i>
+    <span class="currency-flag currency-flag-{{result.toCurrency.code.toLowerCase()}} micro-flag"></span>
+    <span class="badge-text">{{ result.toCurrency.name }}</span>
+  </div>
+
+  <div class="last-updated">
+    <i class="bi bi-clock-history"></i>
+    <span>Rates last updated: {{ result.lastUpdated | date:'medium' }}</span>
+  </div>
+</div>

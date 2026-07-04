@@ -1,0 +1,52 @@
+/* Global Styles */
+
+// CSS variables
+:root {
+  --font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  --bg-gradient: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #311042 100%);
+  --primary-accent: #818cf8;
+  --secondary-accent: #a78bfa;
+  --text-main: #f8fafc;
+  --text-muted: #94a3b8;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: var(--font-family);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  background: var(--bg-gradient);
+  min-height: 100vh;
+  color: var(--text-main);
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Custom scrollbars */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(15, 23, 42, 0.5);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+  
+  &:hover {
+    background: rgba(255, 255, 255, 0.2);
+  }
+}

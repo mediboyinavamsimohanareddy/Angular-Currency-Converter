@@ -1,0 +1,244 @@
+.dropdown-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  width: 100%;
+  position: relative;
+}
+
+.dropdown-label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: rgba(255, 255, 255, 0.6);
+  margin-left: 0.25rem;
+}
+
+.custom-dropdown {
+  position: relative;
+  width: 100%;
+}
+
+.dropdown-trigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 1.25rem;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 14px;
+  color: #fff;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  user-select: none;
+  min-height: 56px;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.12);
+    border-color: rgba(255, 255, 255, 0.25);
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.05);
+  }
+}
+
+.open .dropdown-trigger {
+  border-color: #a78bfa; // light purple focus color
+  box-shadow: 0 0 15px rgba(167, 139, 250, 0.2);
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.selected-value {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  width: calc(100% - 24px);
+
+  .currency-code {
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: #fff;
+  }
+
+  .currency-name {
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.6);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 60%;
+  }
+
+  &.placeholder {
+    color: rgba(255, 255, 255, 0.4);
+    font-size: 1rem;
+  }
+}
+
+.dropdown-flag {
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+  flex-shrink: 0;
+  width: 24px;
+  height: 18px;
+  background-size: cover;
+  background-position: center;
+}
+
+.arrow-icon {
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.6);
+  transition: transform 0.3s ease;
+
+  &.rotated {
+    transform: rotate(180deg);
+    color: #a78bfa;
+  }
+}
+
+// Dropdown panel styling
+.dropdown-panel {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  right: 0;
+  background: rgba(18, 18, 38, 0.92);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+  z-index: 100;
+  overflow: hidden;
+  animation: slideDown 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.search-box {
+  display: flex;
+  align-items: center;
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  gap: 0.5rem;
+  position: relative;
+
+  .search-icon {
+    color: rgba(255, 255, 255, 0.4);
+    font-size: 0.9rem;
+  }
+
+  .search-input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: #fff;
+    font-size: 0.95rem;
+    padding: 0.25rem 0;
+
+    &::placeholder {
+      color: rgba(255, 255, 255, 0.4);
+    }
+  }
+
+  .clear-icon {
+    color: rgba(255, 255, 255, 0.4);
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: color 0.2s;
+
+    &:hover {
+      color: rgba(255, 255, 255, 0.8);
+    }
+  }
+}
+
+.dropdown-list {
+  list-style: none;
+  margin: 0;
+  padding: 0.5rem 0;
+  max-height: 250px;
+  overflow-y: auto;
+
+  // Custom scrollbar
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 10px;
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.3);
+    }
+  }
+}
+
+.dropdown-item {
+  display: flex;
+  align-items: center;
+  padding: 0.75rem 1.25rem;
+  color: rgba(255, 255, 255, 0.8);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  gap: 0.75rem;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.08);
+    color: #fff;
+  }
+
+  &.selected {
+    background: rgba(167, 139, 250, 0.15);
+    color: #a78bfa;
+    font-weight: 500;
+  }
+
+  .item-code {
+    font-weight: 700;
+    font-size: 0.95rem;
+  }
+
+  .item-name {
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.5);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 60%;
+  }
+
+  .check-icon {
+    margin-left: auto;
+    color: #a78bfa;
+    font-size: 0.95rem;
+  }
+}
+
+.no-results {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 2rem 1rem;
+  color: rgba(255, 255, 255, 0.4);
+  font-size: 0.9rem;
+
+  i {
+    font-size: 1.1rem;
+  }
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

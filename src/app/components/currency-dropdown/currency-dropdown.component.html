@@ -1,0 +1,56 @@
+<div class="dropdown-wrapper">
+  <label class="dropdown-label">{{ label }}</label>
+  
+  <div class="custom-dropdown" [class.open]="isOpen">
+    <!-- Selected state trigger -->
+    <div class="dropdown-trigger" (click)="toggleDropdown()" role="button" aria-haspopup="listbox" [attr.aria-expanded]="isOpen">
+      <div class="selected-value" *ngIf="selectedCurrency">
+        <span class="currency-flag currency-flag-{{selectedCurrency.code.toLowerCase()}} dropdown-flag"></span>
+        <span class="currency-code">{{ selectedCurrency.code }}</span>
+        <span class="currency-name">{{ selectedCurrency.name }}</span>
+      </div>
+      <div class="selected-value placeholder" *ngIf="!selectedCurrency">
+        <span>Select Currency</span>
+      </div>
+      <i class="bi bi-chevron-down arrow-icon" [class.rotated]="isOpen"></i>
+    </div>
+
+    <!-- Dropdown list panel -->
+    <div class="dropdown-panel" *ngIf="isOpen">
+      <div class="search-box">
+        <i class="bi bi-search search-icon"></i>
+        <input
+          type="text"
+          class="search-input"
+          [placeholder]="placeholder"
+          [(ngModel)]="searchQuery"
+          (ngModelChange)="filterCurrencies()"
+          (click)="$event.stopPropagation()"
+        />
+        <i class="bi bi-x-circle clear-icon" *ngIf="searchQuery" (click)="searchQuery = ''; filterCurrencies(); $event.stopPropagation()"></i>
+      </div>
+
+      <ul class="dropdown-list" role="listbox">
+        <li
+          *ngFor="let currency of filteredCurrencies"
+          class="dropdown-item"
+          [class.selected]="selectedCurrency?.code === currency.code"
+          (click)="selectCurrency(currency)"
+          role="option"
+          [attr.aria-selected]="selectedCurrency?.code === currency.code"
+        >
+          <span class="currency-flag currency-flag-{{currency.code.toLowerCase()}} dropdown-flag"></span>
+          <span class="item-code">{{ currency.code }}</span>
+          <span class="item-name">{{ currency.name }}</span>
+          <i class="bi bi-check check-icon" *ngIf="selectedCurrency?.code === currency.code"></i>
+        </li>
+        
+        <!-- Empty state -->
+        <li class="no-results" *ngIf="filteredCurrencies.length === 0">
+          <i class="bi bi-exclamation-circle"></i>
+          <span>No currencies found</span>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
